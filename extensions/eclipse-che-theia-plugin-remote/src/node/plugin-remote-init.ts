@@ -185,7 +185,7 @@ to pick-up automatically a free port`));
         // tslint:disable-next-line:no-any
         new TerminalContainerAware().overrideTerminalCreationOptionForDebug((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.DEBUG_EXT.id]);
         // tslint:disable-next-line:no-any
-        new  ContentContainerAware().overrideShowDocument((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.DOCUMENTS_EXT.id]);
+        new ContentContainerAware().overrideShowDocument((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.DOCUMENTS_EXT.id]);
 
         return webSocketClient;
     }
