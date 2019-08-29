@@ -90,7 +90,7 @@ export interface CheTaskMain {
 }
 
 export interface CheSideCarContentReader {
-    $resolveContent(uri: string, options?: { encoding?: string }): Promise<string | undefined>;
+    $read(uri: string, options?: { encoding?: string }): Promise<string | undefined>;
 }
 
 export interface CheSideCarContentReaderMain {

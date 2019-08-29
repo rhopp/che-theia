@@ -20,7 +20,7 @@ export class CheSideCarContentReaderImpl implements CheSideCarContentReader {
         delegate.$registerContentResolver(scheme);
     }
 
-    async $resolveContent(uri: string, options?: { encoding?: string }): Promise<string | undefined> {
+    async $read(uri: string, options?: { encoding?: string }): Promise<string | undefined> {
         // const _uri = URI.parse(uri);
         // return fs.readFileSync(_uri.fsPath, options).toString();
         return '';
