@@ -22,6 +22,5 @@ export class CheSideCarContentReaderImpl implements CheSideCarContentReader {
     async $read(uri: string, options?: { encoding?: string }): Promise<string | undefined> {
         const _uri = URI.parse(uri);
         return fs.readFileSync(_uri.fsPath, options).toString();
-        return '';
     }
 }
