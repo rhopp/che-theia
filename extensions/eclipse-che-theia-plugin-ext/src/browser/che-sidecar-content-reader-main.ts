@@ -20,7 +20,7 @@ export class CheSideCarContentReaderMainImpl implements CheSideCarContentReaderM
         this.registry = container.get(CheSideCarContentReaderRegistry);
     }
 
-    async $registerContentResolver(scheme: string): Promise<void> {
+    async $registerContentReader(scheme: string): Promise<void> {
         this.registry.register(scheme, async (uri, options?: { encoding?: string }) => await this.delegate.$read(uri, options));
     }
 }

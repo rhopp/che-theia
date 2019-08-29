@@ -94,7 +94,7 @@ export interface CheSideCarContentReader {
 }
 
 export interface CheSideCarContentReaderMain {
-    $registerContentResolver(scheme: string): Promise<void>;
+    $registerContentReader(scheme: string): Promise<void>;
 }
 
 export interface Variable {
