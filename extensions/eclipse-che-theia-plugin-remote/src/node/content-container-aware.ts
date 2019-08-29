@@ -12,7 +12,7 @@ import * as theia from '@theia/plugin';
 import { DocumentsExtImpl } from '@theia/plugin-ext/lib/plugin/documents';
 import URI from 'vscode-uri';
 
-export class ContentContainerAware {
+export class DocumentContainerAware {
 
     overrideOpenDocument(documentExt: DocumentsExtImpl) {
         const originalOpenDocument = documentExt.openDocument.bind(documentExt);
@@ -26,7 +26,13 @@ export class ContentContainerAware {
         documentExt.showDocument = showDocument;
     }
 
-    private overrideUri(uri: URI) {
+    overrideGetDocumentData(documentExt: DocumentsExtImpl) {
+        const originalGetDocumentData = documentExt.getDocumentData.bind(documentExt);
+        const getDocumentData = (resource: theia.Uri) => originalGetDocumentData(this.overrideUri(resource));
+        documentExt.getDocumentData = getDocumentData;
+    }
+
+    private overrideUri(uri: URI | theia.Uri) {
         if (!uri.path.startsWith('/projects')) {
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
             uri = uri.with({ scheme: newScheme });

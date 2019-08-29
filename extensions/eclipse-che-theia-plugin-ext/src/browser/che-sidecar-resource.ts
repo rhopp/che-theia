@@ -59,6 +59,8 @@ export class CheSideCarResourceResolver implements ResourceResolver {
     static SCHEME = 'file-sidecar';
     async resolve(uri: URI): Promise<CheSideCarResource> {
         console.log('>>>>>>>>>>>>>> RESOLVE URI: ', uri.toString());
+        console.log('>>>>>>>>>>>>>> WITH SCHEME: ', uri.scheme);
+        console.log('>>>>>>>>>>>>>> IS: ', (uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)));
         if (uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)) {
             throw new Error('The given URI is not a valid side-car resource URI: ' + uri);
         }
