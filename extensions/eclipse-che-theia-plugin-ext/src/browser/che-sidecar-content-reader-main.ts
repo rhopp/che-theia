@@ -9,9 +9,9 @@
  **********************************************************************/
 import { RPCProtocol } from '@theia/plugin-ext/lib/common/rpc-protocol';
 import { interfaces } from 'inversify';
-import { CheSideCarContentResolverMain } from '../common/che-protocol';
+import { CheSideCarContentReaderMain } from '../common/che-protocol';
 
-export class CheSideCarContentResolverMainImpl implements CheSideCarContentResolverMain {
+export class CheSideCarContentReaderMainImpl implements CheSideCarContentReaderMain {
     // private readonly delegate: CheSideCarContentResolver;
     // private readonly registry: CheSideCarContentReaderRegistry;
 

@@ -89,11 +89,11 @@ export interface CheTaskMain {
     $fireTaskExited(event: che.TaskExitedEvent): Promise<void>;
 }
 
-export interface CheSideCarContentResolver {
+export interface CheSideCarContentReader {
     $resolveContent(uri: string, options?: { encoding?: string }): Promise<string | undefined>;
 }
 
-export interface CheSideCarContentResolverMain {
+export interface CheSideCarContentReaderMain {
     $registerContentResolver(scheme: string): Promise<void>;
 }
 
@@ -378,8 +378,8 @@ export const PLUGIN_RPC_CONTEXT = {
     CHE_USER: <ProxyIdentifier<CheUser>>createProxyIdentifier<CheUser>('CheUser'),
     CHE_USER_MAIN: <ProxyIdentifier<CheUserMain>>createProxyIdentifier<CheUserMain>('CheUserMain'),
 
-    CHE_SIDERCAR_CONTENT_RESOLVER: <ProxyIdentifier<CheSideCarContentResolver>>createProxyIdentifier<CheSideCarContentResolver>('CheSideCarContentResolver'),
-    CHE_SIDERCAR_CONTENT_RESOLVER_MAIN: <ProxyIdentifier<CheSideCarContentResolverMain>>createProxyIdentifier<CheSideCarContentResolverMain>('CheSideCarContentResolverMain'),
+    CHE_SIDERCAR_CONTENT_READER: <ProxyIdentifier<CheSideCarContentReader>>createProxyIdentifier<CheSideCarContentReader>('CheSideCarContentReader'),
+    CHE_SIDERCAR_CONTENT_READER_MAIN: <ProxyIdentifier<CheSideCarContentReaderMain>>createProxyIdentifier<CheSideCarContentReaderMain>('CheSideCarContentReaderMain'),
 };
 
 // Theia RPC protocol
@@ -526,12 +526,12 @@ export interface CheUserMain {
     $deleteUserPreferences(list?: string[]): Promise<void>;
 }
 
-// export type ContentReaderFunc = (uri: string, options?: { encoding?: string }) => Promise<string | undefined>;
+export type ContentReaderFunc = (uri: string, options?: { encoding?: string }) => Promise<string | undefined>;
 
-// export const CheSideCarContentReaderRegistry = Symbol('CheSideCarContentReaderRegistry');
+export const CheSideCarContentReaderRegistry = Symbol('CheSideCarContentReaderRegistry');
 
-// export interface CheSideCarContentReaderRegistry {
-//     register(scheme: string, f: ContentReaderFunc): void;
-//     unregister(scheme: string): void;
-//     get(scheme: string): ContentReaderFunc | undefined;
-// }
+export interface CheSideCarContentReaderRegistry {
+    register(scheme: string, f: ContentReaderFunc): void;
+    unregister(scheme: string): void;
+    get(scheme: string): ContentReaderFunc | undefined;
+}
