@@ -20,6 +20,7 @@ import { CheDevfileImpl } from './che-devfile';
 import { CheTaskImpl } from './che-task-impl';
 import { CheSshImpl } from './che-ssh';
 import { CheUserImpl } from './che-user';
+import { CheSideCarContentResolverImpl } from './che-sidecar-content-resolver';
 
 export interface CheApiFactory {
     (plugin: Plugin): typeof che;
@@ -33,6 +34,7 @@ export function createAPIFactory(rpc: RPCProtocol): CheApiFactory {
     const cheTaskImpl = rpc.set(PLUGIN_RPC_CONTEXT.CHE_TASK, new CheTaskImpl(rpc));
     const cheSshImpl = rpc.set(PLUGIN_RPC_CONTEXT.CHE_SSH, new CheSshImpl(rpc));
     const cheUserImpl = rpc.set(PLUGIN_RPC_CONTEXT.CHE_USER, new CheUserImpl(rpc));
+    rpc.set(PLUGIN_RPC_CONTEXT.CHE_SIDERCAR_CONTENT_RESOLVER, new CheSideCarContentResolverImpl(rpc));
 
     return function (plugin: Plugin): typeof che {
         const workspace: typeof che.workspace = {
