@@ -37,6 +37,7 @@ export class CheSideCarContentReaderRegistryImpl implements CheSideCarContentRea
     protected readonly readers = new Map<string, ContentReaderFunc>();
 
     register(scheme: string, f: ContentReaderFunc): void {
+        console.log('>>>>>>>>>>>>>> CONTENT READER REGISTERED: ', scheme);
         this.readers.set(scheme, f);
     }
 
