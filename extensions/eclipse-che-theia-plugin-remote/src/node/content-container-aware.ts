@@ -8,22 +8,29 @@
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
 
+import * as theia from '@theia/plugin';
 import { DocumentsExtImpl } from '@theia/plugin-ext/lib/plugin/documents';
 import URI from 'vscode-uri';
 
 export class ContentContainerAware {
 
+    overrideOpenDocument(documentExt: DocumentsExtImpl) {
+        const originalOpenDocument = documentExt.openDocument.bind(documentExt);
+        const openDocument = (uri: URI) => originalOpenDocument(this.overrideUri(uri));
+        documentExt.openDocument = openDocument;
+    }
+
     overrideShowDocument(documentExt: DocumentsExtImpl) {
         const originalShowDocument = documentExt.showDocument.bind(documentExt);
-
-        const showDocument = (uri: URI) => {
-            if (!uri.path.startsWith('/projects')) {
-                const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
-                uri = uri.with({ scheme: newScheme });
-            }
-            return originalShowDocument(uri);
-        };
-
+        const showDocument = (uri: URI, options?: theia.TextDocumentShowOptions) => originalShowDocument(this.overrideUri(uri), options);
         documentExt.showDocument = showDocument;
+    }
+
+    private overrideUri(uri: URI) {
+        if (!uri.path.startsWith('/projects')) {
+            const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
+            uri = uri.with({ scheme: newScheme });
+        }
+        return uri;
     }
 }
