@@ -20,10 +20,11 @@ import {
     CheApiService,
     CheTaskClient,
     CheTaskService,
-    ChePluginService
+    ChePluginService,
+    CheSideCarContentReaderRegistry
 } from '../common/che-protocol';
 import { WebSocketConnectionProvider, bindViewContribution, WidgetFactory } from '@theia/core/lib/browser';
-import { CommandContribution } from '@theia/core/lib/common';
+import { CommandContribution, ResourceResolver } from '@theia/core/lib/common';
 import { CheTaskClientImpl } from './che-task-client';
 import { ChePluginViewContribution } from './plugin/che-plugin-view-contribution';
 import { ChePluginWidget } from './plugin/che-plugin-widget';
@@ -32,6 +33,7 @@ import { ChePluginManager } from './plugin/che-plugin-manager';
 import { ChePluginMenu } from './plugin/che-plugin-menu';
 import { ChePluginCommandContribution } from './plugin/che-plugin-command-contribution';
 import { bindChePluginPreferences } from './plugin/che-plugin-preferences';
+import { CheSideCarContentReaderRegistryImpl, CheSideCarResourceResolver } from './che-sidecar-resource';
 
 export default new ContainerModule(bind => {
     bind(CheApiProvider).toSelf().inSingletonScope();
@@ -71,4 +73,8 @@ export default new ContainerModule(bind => {
 
     bind(ChePluginCommandContribution).toSelf().inSingletonScope();
     bind(CommandContribution).toService(ChePluginCommandContribution);
+
+    bind(CheSideCarContentReaderRegistry).to(CheSideCarContentReaderRegistryImpl).inSingletonScope();
+    bind(CheSideCarResourceResolver).toSelf().inSingletonScope();
+    bind(ResourceResolver).toService(CheSideCarResourceResolver);
 });
