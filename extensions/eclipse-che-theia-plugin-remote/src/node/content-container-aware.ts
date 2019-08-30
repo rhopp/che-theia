@@ -16,24 +16,25 @@ export class DocumentContainerAware {
 
     overrideOpenDocument(documentExt: DocumentsExtImpl) {
         const originalOpenDocument = documentExt.openDocument.bind(documentExt);
-        const openDocument = (uri: URI) => originalOpenDocument(this.overrideUri(uri));
+        const openDocument = (uri: URI) => originalOpenDocument(this.overrideUri(uri, 'openDocument'));
         documentExt.openDocument = openDocument;
     }
 
     overrideShowDocument(documentExt: DocumentsExtImpl) {
         const originalShowDocument = documentExt.showDocument.bind(documentExt);
-        const showDocument = (uri: URI, options?: theia.TextDocumentShowOptions) => originalShowDocument(this.overrideUri(uri), options);
+        const showDocument = (uri: URI, options?: theia.TextDocumentShowOptions) => originalShowDocument(this.overrideUri(uri, 'showDocument'), options);
         documentExt.showDocument = showDocument;
     }
 
     overrideGetDocumentData(documentExt: DocumentsExtImpl) {
         const originalGetDocumentData = documentExt.getDocumentData.bind(documentExt);
-        const getDocumentData = (resource: theia.Uri) => originalGetDocumentData(this.overrideUri(resource));
+        const getDocumentData = (resource: theia.Uri) => originalGetDocumentData(this.overrideUri(resource, 'getDocumentData'));
         documentExt.getDocumentData = getDocumentData;
     }
 
-    private overrideUri(uri: URI | theia.Uri) {
+    private overrideUri(uri: URI | theia.Uri, f: string) {
         if (!uri.path.startsWith('/projects')) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC: ', f);
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
             uri = uri.with({ scheme: newScheme });
         }
