@@ -61,7 +61,7 @@ export class CheSideCarResourceResolver implements ResourceResolver {
         console.log('>>>>>>>>>>>>>> RESOLVE URI: ', uri.toString());
         console.log('>>>>>>>>>>>>>> WITH SCHEME: ', uri.scheme);
         console.log('>>>>>>>>>>>>>> IS: ', (uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)));
-        if (uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)) {
+        if (!uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)) {
             throw new Error('The given URI is not a valid side-car resource URI: ' + uri);
         }
 
