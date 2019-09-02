@@ -60,7 +60,6 @@ export class CheSideCarResourceResolver implements ResourceResolver {
             throw new Error('The given URI is not a valid side-car resource URI: ' + uri);
         }
 
-        console.log('>>>>>>>>>>>>>> FIND READER: ', uri.toString());
         const reader = this.registry.get(uri.scheme);
         if (!reader) {
             throw new Error(`Side car content reader not found for '${uri.scheme}' scheme`);
