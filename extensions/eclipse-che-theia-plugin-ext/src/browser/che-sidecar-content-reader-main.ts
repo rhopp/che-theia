@@ -22,9 +22,14 @@ export class CheSideCarContentReaderMainImpl implements CheSideCarContentReaderM
 
     async $registerContentReader(scheme: string): Promise<void> {
         this.registry.register(scheme, async (uri, options?: { encoding?: string }) => {
+            console.log('>>>>>>>>>>>>>> REDIRECT CONTENT READER');
+            try {
                 const content = await this.delegate.$read(uri, options);
                 console.log('>>>>>>>>>>>>>> CONTENT: ', content.length);
                 return content;
+            } catch (err) {
+                console.error('>>>>>>>>>>>>> FAILED TO READ CONTENT: ', err);
+            }
         });
     }
 }
