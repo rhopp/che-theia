@@ -27,7 +27,6 @@ export class CheSideCarResource implements Resource {
     dispose(): void { }
 
     async readContents(options?: { encoding?: string }): Promise<string> {
-        console.log('>>>>>>>>>>>>>> READ CONTENT: ');
         return this.reader(this.uri.toString(), options);
     }
 }
@@ -37,7 +36,6 @@ export class CheSideCarContentReaderRegistryImpl implements CheSideCarContentRea
     protected readonly readers = new Map<string, ContentReaderFunc>();
 
     register(scheme: string, f: ContentReaderFunc): void {
-        console.log('>>>>>>>>>>>>>> CONTENT READER REGISTERED: ', scheme);
         this.readers.set(scheme, f);
     }
 
@@ -58,9 +56,6 @@ export class CheSideCarResourceResolver implements ResourceResolver {
 
     static SCHEME = 'file-sidecar';
     async resolve(uri: URI): Promise<CheSideCarResource> {
-        console.log('>>>>>>>>>>>>>> RESOLVE URI: ', uri.toString());
-        console.log('>>>>>>>>>>>>>> WITH SCHEME: ', uri.scheme);
-        console.log('>>>>>>>>>>>>>> IS: ', (uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)));
         if (!uri.scheme.startsWith(CheSideCarResourceResolver.SCHEME)) {
             throw new Error('The given URI is not a valid side-car resource URI: ' + uri);
         }
@@ -70,7 +65,6 @@ export class CheSideCarResourceResolver implements ResourceResolver {
         if (!reader) {
             throw new Error(`Side car content reader not found for '${uri.scheme}' scheme`);
         }
-        console.log('>>>>>>>>>>>>>> READER FOUND: ');
 
         return new CheSideCarResource(uri, reader);
     }

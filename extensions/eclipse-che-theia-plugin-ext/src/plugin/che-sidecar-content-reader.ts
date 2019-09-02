@@ -20,6 +20,8 @@ export class CheSideCarContentReaderImpl implements CheSideCarContentReader {
     }
 
     async $read(uri: string, options?: { encoding?: string }): Promise<string | undefined> {
+        console.info(`Request to read content remotely ${uri}`);
+
         const _uri = URI.parse(uri);
         if (fs.pathExistsSync(_uri.fsPath)) {
             return fs.readFileSync(_uri.fsPath, options).toString();
