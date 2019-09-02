@@ -14,29 +14,37 @@ import URI from 'vscode-uri';
 
 export class DocumentContainerAware {
 
+    static makeDocumentContainerAware(documentExt: DocumentsExtImpl): void {
+        const documentContainerAware = new DocumentContainerAware();
+        documentContainerAware.overrideGetDocumentData(documentExt);
+        documentContainerAware.overrideShowDocument(documentExt);
+        documentContainerAware.overrideOpenDocument(documentExt);
+    }
+
     overrideOpenDocument(documentExt: DocumentsExtImpl) {
         const originalOpenDocument = documentExt.openDocument.bind(documentExt);
-        const openDocument = (uri: URI) => originalOpenDocument(this.overrideUri(uri, 'openDocument'));
+        const openDocument = (uri: URI) => originalOpenDocument(this.overrideUri(uri));
         documentExt.openDocument = openDocument;
     }
 
     overrideShowDocument(documentExt: DocumentsExtImpl) {
         const originalShowDocument = documentExt.showDocument.bind(documentExt);
-        const showDocument = (uri: URI, options?: theia.TextDocumentShowOptions) => originalShowDocument(this.overrideUri(uri, 'showDocument'), options);
+        const showDocument = (uri: URI, options?: theia.TextDocumentShowOptions) => originalShowDocument(this.overrideUri(uri), options);
         documentExt.showDocument = showDocument;
     }
 
     overrideGetDocumentData(documentExt: DocumentsExtImpl) {
         const originalGetDocumentData = documentExt.getDocumentData.bind(documentExt);
-        const getDocumentData = (resource: theia.Uri) => originalGetDocumentData(this.overrideUri(resource, 'getDocumentData'));
+        const getDocumentData = (resource: theia.Uri) => originalGetDocumentData(this.overrideUri(resource));
         documentExt.getDocumentData = getDocumentData;
     }
 
-    private overrideUri(uri: URI | theia.Uri, f: string) {
+    private overrideUri(uri: URI | theia.Uri) {
         if (!uri.path.startsWith('/projects')) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC: ', f);
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
             uri = uri.with({ scheme: newScheme });
+
+            console.info(`Request to ${arguments.callee.caller.toString()} is overridden with the new uri ${uri.toString}`);
         }
         return uri;
     }
