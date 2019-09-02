@@ -34,7 +34,9 @@ export class DocumentContainerAware {
 
     private overrideUri(uri: URI | theia.Uri, f: string) {
         if (!uri.path.startsWith('/projects')) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC: ', f);
+            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC');
+            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC: ', arguments.callee.call.toString());
+            console.log('>>>>>>>>>>>>>>>>>>>>>> OVERRIDDEN FUNC');
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
             uri = uri.with({ scheme: newScheme });
         }
