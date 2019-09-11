@@ -32,7 +32,8 @@ export class LanguagesContainerAware {
 
                     const result = await provider.provideDefinition(document, position, token);
                     if (Array.isArray(result)) {
-                        result.forEach(value => this.overrideResult(value));
+                        // tslint:disable-next-line: no-any
+                        (result as any[]).forEach(value => this.overrideResult(value));
                     } else {
                         this.overrideResult(result);
                     }

@@ -30,7 +30,7 @@ import { TerminalContainerAware } from './terminal-container-aware';
 import { PluginDiscovery } from './plugin-discovery';
 import { PluginReaderExtension } from './plugin-reader-extension';
 import { DocumentContainerAware } from './content-container-aware';
-import { LanguagesContainerAware } from './content-container-aware copy';
+import { LanguagesContainerAware } from './languages-container-aware';
 
 interface CheckAliveWS extends ws {
     alive: boolean;
