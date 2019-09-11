@@ -28,12 +28,9 @@ import { DummyTraceLogger } from './dummy-trace-logger';
 import pluginRemoteBackendModule from './plugin-remote-backend-module';
 import { TerminalContainerAware } from './terminal-container-aware';
 import { PluginDiscovery } from './plugin-discovery';
-<<<<<<< HEAD
 import { PluginReaderExtension } from './plugin-reader-extension';
-import { ContentContainerAware } from './content-container-aware';
-=======
 import { DocumentContainerAware } from './content-container-aware';
->>>>>>> fix
+import { LanguagesContainerAware } from './content-container-aware copy';
 
 interface CheckAliveWS extends ws {
     alive: boolean;
@@ -190,6 +187,8 @@ to pick-up automatically a free port`));
         new TerminalContainerAware().overrideTerminalCreationOptionForDebug((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.DEBUG_EXT.id]);
         // tslint:disable-next-line:no-any
         DocumentContainerAware.makeDocumentContainerAware((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.DOCUMENTS_EXT.id]);
+        // tslint:disable-next-line:no-any
+        LanguagesContainerAware.makeLanguagesContainerAware((webSocketClient.rpc as any).locals[MAIN_RPC_CONTEXT.LANGUAGES_EXT.id]);
 
         return webSocketClient;
     }
