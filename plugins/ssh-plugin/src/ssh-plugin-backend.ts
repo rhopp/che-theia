@@ -150,11 +150,11 @@ const deleteKeyPair = async (sshkeyManager: SshKeyManager) => {
 };
 
 const viewPublicKey = async (sshkeyManager: SshKeyManager) => {
-    const keys: cheApi.ssh.SshPair[] = await sshkeyManager.getAll('vcs');
-    const keyResp = await theia.window.showQuickPick<theia.QuickPickItem>(keys.map(key =>
-        ({ label: key.name ? key.name : '' })), {});
-    const keyName = keyResp ? keyResp.label : '';
     try {
+        const keys: cheApi.ssh.SshPair[] = await sshkeyManager.getAll('vcs');
+        const keyResp = await theia.window.showQuickPick<theia.QuickPickItem>(keys.map(key =>
+            ({ label: key.name ? key.name : '' })), {});
+        const keyName = keyResp ? keyResp.label : '';
         const key = await sshkeyManager.get('vcs', keyName);
         const document = await theia.workspace.openTextDocument({ content: key.publicKey });
         theia.window.showTextDocument(document);

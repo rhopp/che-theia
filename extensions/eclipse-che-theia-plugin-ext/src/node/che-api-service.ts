@@ -135,7 +135,7 @@ export class CheApiServiceImpl implements CheApiService {
         try {
             const client = await this.getCheApiClient();
             if (client) {
-                return client.generateSshKey(service, name);
+                return await client.generateSshKey(service, name);
             }
 
             throw new Error(`Unable to generate SSH Key for ${service}:${name}`);
@@ -149,7 +149,7 @@ export class CheApiServiceImpl implements CheApiService {
         try {
             const client = await this.getCheApiClient();
             if (client) {
-                return client.createSshKey(sshKeyPair);
+                return await client.createSshKey(sshKeyPair);
             }
 
             throw new Error('Unable to create SSH Key');
@@ -177,7 +177,7 @@ export class CheApiServiceImpl implements CheApiService {
         try {
             const client = await this.getCheApiClient();
             if (client) {
-                return client.getAllSshKey(service);
+                return await client.getAllSshKey(service);
             }
             throw new Error(`Unable to get SSH Keys for ${service}`);
         } catch (e) {
@@ -190,7 +190,7 @@ export class CheApiServiceImpl implements CheApiService {
         try {
             const client = await this.getCheApiClient();
             if (client) {
-                return client.deleteSshKey(service, name);
+                return await client.deleteSshKey(service, name);
             }
             throw new Error(`Unable to delete SSH Key for ${service}:${name}`);
         } catch (e) {
