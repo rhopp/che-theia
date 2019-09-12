@@ -155,8 +155,8 @@ const viewPublicKey = async (sshkeyManager: SshKeyManager) => {
         const keyResp = await theia.window.showQuickPick<theia.QuickPickItem>(keys.map(key =>
             ({ label: key.name ? key.name : '' })), {});
         const keyName = keyResp ? keyResp.label : '';
-        const key = await sshkeyManager.get('vcs', keyName);
-        const document = await theia.workspace.openTextDocument({ content: key.publicKey });
+        const key1 = await sshkeyManager.get('vcs', keyName);
+        const document = await theia.workspace.openTextDocument({ content: key1.publicKey });
         theia.window.showTextDocument(document);
     } catch (error) {
         theia.window.showErrorMessage(error);
