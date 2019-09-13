@@ -39,14 +39,6 @@ export class DocumentContainerAware {
         documentExt.getDocumentData = getDocumentData;
     }
 
-    overrideResult(result: theia.Location | theia.DefinitionLink): void {
-        if (result instanceof theia.Location) {
-            result.uri = this.overrideUri(result.uri);
-        } else {
-            result.targetUri = this.overrideUri(result.targetUri);
-        }
-    }
-
     private overrideUri(uri: URI | theia.Uri) {
         if (!uri.path.startsWith('/projects')) {
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;

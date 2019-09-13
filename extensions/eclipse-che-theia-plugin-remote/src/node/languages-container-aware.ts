@@ -46,13 +46,13 @@ export class LanguagesContainerAware {
         // languagesExt.registerDefinitionProvider = registerDefinitionProvider;
     }
 
-    // overrideResult(result: theia.Location | theia.DefinitionLink): void {
-    //     if (result instanceof theia.Location) {
-    //         result.uri = this.overrideUri(result.uri);
-    //     } else {
-    //         result.targetUri = this.overrideUri(result.targetUri);
-    //     }
-    // }
+    overrideResult(reference: theia.Location | theia.DefinitionLink): void {
+        // if (result instanceof theia.Location) {
+        //     result.uri = this.overrideUri(result.uri);
+        // } else {
+        //     result.targetUri = this.overrideUri(result.targetUri);
+        // }
+    }
 
     overrideUri(uri: URI | theia.Uri) {
         if (!uri.path.startsWith('/projects')) {
