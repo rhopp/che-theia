@@ -8,9 +8,9 @@
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
 
-// import * as theia from '@theia/plugin';
+import * as theia from '@theia/plugin';
 import { LanguagesExtImpl } from '@theia/plugin-ext/lib/plugin/languages';
-// import URI from 'vscode-uri';
+import URI from 'vscode-uri';
 
 export class LanguagesContainerAware {
 
@@ -46,19 +46,19 @@ export class LanguagesContainerAware {
         // languagesExt.registerDefinitionProvider = registerDefinitionProvider;
     }
 
-    // private overrideResult(result: theia.Location | theia.DefinitionLink): void {
-    //     if (result instanceof theia.Location) {
-    //         result.uri = this.overrideUri(result.uri);
-    //     } else {
-    //         result.targetUri = this.overrideUri(result.targetUri);
-    //     }
-    // }
+    overrideResult(result: theia.Location | theia.DefinitionLink): void {
+        if (result instanceof theia.Location) {
+            result.uri = this.overrideUri(result.uri);
+        } else {
+            result.targetUri = this.overrideUri(result.targetUri);
+        }
+    }
 
-    // private overrideUri(uri: URI | theia.Uri) {
-    //     if (!uri.path.startsWith('/projects')) {
-    //         const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
-    //         uri = uri.with({ scheme: newScheme });
-    //     }
-    //     return uri;
-    // }
+    private overrideUri(uri: URI | theia.Uri) {
+        if (!uri.path.startsWith('/projects')) {
+            const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
+            uri = uri.with({ scheme: newScheme });
+        }
+        return uri;
+    }
 }
