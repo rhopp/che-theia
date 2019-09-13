@@ -20,38 +20,38 @@ export class LanguagesContainerAware {
     }
 
     overrideDefinitionProvider(languagesExt: LanguagesExtImpl) {
-        // const originalRegisterDefinitionProvider = languagesExt.registerDefinitionProvider.bind(languagesExt);
-        // const registerDefinitionProvider = (selector: theia.DocumentSelector, provider: theia.DefinitionProvider) =>
-        //     originalRegisterDefinitionProvider(selector, {
-        //         provideDefinition: async (
-        //             document: theia.TextDocument,
-        //             position: theia.Position,
-        //             token: theia.CancellationToken | undefined
-        //         ): Promise<theia.Definition | theia.DefinitionLink[]> => {
-        //             console.log('>>>>>>>>>>>>>>>>>>> OVERRIDING provideDefinition');
+        const originalRegisterDefinitionProvider = languagesExt.registerDefinitionProvider.bind(languagesExt);
+        const registerDefinitionProvider = (selector: theia.DocumentSelector, provider: theia.DefinitionProvider) =>
+            originalRegisterDefinitionProvider(selector, {
+                provideDefinition: async (
+                    document: theia.TextDocument,
+                    position: theia.Position,
+                    token: theia.CancellationToken | undefined
+                ): Promise<theia.Definition | theia.DefinitionLink[]> => {
+                    console.log('>>>>>>>>>>>>>>>>>>> OVERRIDING provideDefinition');
 
-        //             const result = await provider.provideDefinition(document, position, token);
-        //             if (Array.isArray(result)) {
-        //                 // tslint:disable-next-line: no-any
-        //                 (result as any[]).forEach(value => this.overrideResult(value));
-        //             } else {
-        //                 this.overrideResult(result);
-        //             }
+                    const result = await provider.provideDefinition(document, position, token);
+                    if (Array.isArray(result)) {
+                        // tslint:disable-next-line: no-any
+                        (result as any[]).forEach(value => this.overrideResult(value));
+                    } else {
+                        this.overrideResult(result);
+                    }
 
-        //             console.log('>>>>>>>>>>>>>>>>>>> RESULT: ', result);
-        //             return result;
-        //         }
-        //     });
+                    console.log('>>>>>>>>>>>>>>>>>>> RESULT: ', result);
+                    return result;
+                }
+            });
 
-        // languagesExt.registerDefinitionProvider = registerDefinitionProvider;
+        languagesExt.registerDefinitionProvider = registerDefinitionProvider;
     }
 
     overrideResult(reference: theia.Location | theia.DefinitionLink): void {
-        // if (result instanceof theia.Location) {
-        //     result.uri = this.overrideUri(result.uri);
-        // } else {
-        //     result.targetUri = this.overrideUri(result.targetUri);
-        // }
+        if ('uri' in reference) {
+            reference.uri = this.overrideUri(reference.uri);
+        } else {
+            reference.targetUri = this.overrideUri(reference.targetUri);
+        }
     }
 
     overrideUri(uri: URI | theia.Uri) {
