@@ -136,6 +136,16 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.3.tgz#61c122c420d7a91613f393d6a06e5a4c6ae6abf3"
   integrity sha512-s5PLdI9NYgjBvfrv6rhirPHlAHWx+Sfo/IjsAeiXYfmemC/GSjwsyz1wLnGPazbLPXWfk62ks980o9AmsxYUEQ==
 
+"@ivinokur/workspace-client@latest":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ivinokur/workspace-client/-/workspace-client-0.0.1.tgz#26f6d181df416324d70a08dd9a88f398cb973fce"
+  integrity sha512-PZOhpiTQjKBKKgTuF26BtJZHVb4rYYaEzPqPETnnp9nTk/1wJqxuMOvbM87dAqHWKkzuF+2fGTwCV9tESeAgVQ==
+  dependencies:
+    "@eclipse-che/api" "^6.16.1"
+    axios "0.18.0"
+    moxios "git://github.com/stoplightio/moxios.git#v1.3.0"
+    websocket "1.0.23"
+
 "@lerna/add@3.16.2":
   version "3.16.2"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.16.2.tgz#90ecc1be7051cfcec75496ce122f656295bd6e94"
@@ -8256,6 +8266,13 @@ move-concurrently@^1.0.1:
 "moxios@git://github.com/stoplightio/moxios#v1.3.0":
   version "1.3.0"
   resolved "git://github.com/stoplightio/moxios#9d702c8eafee4b02917d6bc400ae15f1e835cf51"
+  dependencies:
+    class-autobind "^0.1.4"
+
+"moxios@git://github.com/stoplightio/moxios.git#v1.3.0":
+  version "1.3.0"
+  uid "9d702c8eafee4b02917d6bc400ae15f1e835cf51"
+  resolved "git://github.com/stoplightio/moxios.git#9d702c8eafee4b02917d6bc400ae15f1e835cf51"
   dependencies:
     class-autobind "^0.1.4"
 

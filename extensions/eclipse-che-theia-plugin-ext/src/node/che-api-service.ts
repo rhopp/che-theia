@@ -9,7 +9,7 @@
  **********************************************************************/
 import { CheApiService, Preferences, WorkspaceSettings } from '../common/che-protocol';
 import { che as cheApi } from '@eclipse-che/api';
-import WorkspaceClient, { IRestAPIConfig, IRemoteAPI } from '@eclipse-che/workspace-client';
+import WorkspaceClient, { IRestAPIConfig, IRemoteAPI } from '@ivinokur/workspace-client';
 import { injectable } from 'inversify';
 
 const ENV_WORKSPACE_ID_IS_NOT_SET = 'Environment variable CHE_WORKSPACE_ID is not set';
