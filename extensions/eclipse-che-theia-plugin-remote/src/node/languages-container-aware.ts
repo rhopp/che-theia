@@ -46,15 +46,15 @@ export class LanguagesContainerAware {
         // languagesExt.registerDefinitionProvider = registerDefinitionProvider;
     }
 
-    overrideResult(result: theia.Location | theia.DefinitionLink): void {
-        if (result instanceof theia.Location) {
-            result.uri = this.overrideUri(result.uri);
-        } else {
-            result.targetUri = this.overrideUri(result.targetUri);
-        }
-    }
+    // overrideResult(result: theia.Location | theia.DefinitionLink): void {
+    //     if (result instanceof theia.Location) {
+    //         result.uri = this.overrideUri(result.uri);
+    //     } else {
+    //         result.targetUri = this.overrideUri(result.targetUri);
+    //     }
+    // }
 
-     overrideUri(uri: URI | theia.Uri) {
+    overrideUri(uri: URI | theia.Uri) {
         if (!uri.path.startsWith('/projects')) {
             const newScheme = 'file-sidecar-' + process.env.CHE_MACHINE_NAME;
             uri = uri.with({ scheme: newScheme });
