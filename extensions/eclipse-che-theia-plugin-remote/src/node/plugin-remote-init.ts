@@ -29,7 +29,7 @@ import pluginRemoteBackendModule from './plugin-remote-backend-module';
 import { TerminalContainerAware } from './terminal-container-aware';
 import { PluginDiscovery } from './plugin-discovery';
 import { PluginReaderExtension } from './plugin-reader-extension';
-import { DocumentContainerAware } from './content-container-aware';
+import { DocumentContainerAware } from './document-container-aware';
 import { LanguagesContainerAware } from './languages-container-aware';
 
 interface CheckAliveWS extends ws {
