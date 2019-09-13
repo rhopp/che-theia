@@ -150,6 +150,7 @@ const deleteKeyPair = async (sshkeyManager: SshKeyManager) => {
 };
 
 const viewPublicKey = async (sshkeyManager: SshKeyManager) => {
+    theia.window.showInformationMessage('Message from the plugin');
     try {
         const keys: cheApi.ssh.SshPair[] = await sshkeyManager.getAll('vcs');
         const keyResp = await theia.window.showQuickPick<theia.QuickPickItem>(keys.map(key =>
